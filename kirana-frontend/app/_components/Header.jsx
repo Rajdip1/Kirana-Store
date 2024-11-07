@@ -49,6 +49,7 @@ import GlobalApi from "../GlobalApi";
 
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetHeader,
@@ -207,6 +208,15 @@ export default function Header() {
                 <SheetDescription>
                   <CartItemList cartItems={cartItems}/>
                 </SheetDescription>
+                <SheetClose>
+                  <div className="absolute w-[85%] bottom-6 flex flex-col gap-5">
+                    <h2 className="font-semibold text-lg flex justify-around">
+                      SubTotal: <span>${subTotal}</span>
+                    </h2>
+                    <Button className="bg-green-600 mx-18" onClick={()=>router.push(jwt?"/checkout":"/sign-in")}>
+                      Checkout</Button>
+                  </div>
+                </SheetClose>
               </SheetHeader>
             </SheetContent>
           </Sheet>
