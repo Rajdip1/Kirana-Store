@@ -33,8 +33,15 @@ const signIn = (email, password) => axiosClient.post("/auth/local", {
 
 // signle category fetch
 const getSingleCategory = (category) =>
-    axiosClient.get(`/products?populate=*&filters[category][title][$in]=${category}`
-    );
+    axiosClient.get(`/products?populate=*&filters[categories][title][$in]=${encodeURIComponent(category)}`)
+    .catch((error) => {
+        console.error("Error fetching category:", error);
+        throw error; // Re-throw the error to handle it elsewhere if needed
+    });
+
+// const getSingleCategory = (category) =>
+//     axiosClient.get(`/products?populate=*&filters[category][title][$in]=${category}`
+//     );
 
 // to be continue...
 const addToCart = (data, jwt) => axiosClient.post(`http://localhost:1337/api/user-carts/:id`, data, {
