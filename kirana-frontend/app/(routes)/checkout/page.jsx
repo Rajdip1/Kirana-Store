@@ -1,14 +1,25 @@
 "use client"
+import { Sub } from "@radix-ui/react-dropdown-menu";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const page = () => {
   // const [user, setUser] = useEffect(null);
   // const [jwt, setJwt] = useState(null);
-  // const [totalCart, setTotalCart] = useState(0);
-  // const [cartItems, setCartItems] = useState([]);
-  // const [subTotal, setSubTotal] = useState(0);
-  // const router = useRouter();
+  const [totalCart, setTotalCart] = useState(0);
+  const [cartItems, setCartItems] = useState([]);
+  const [subTotal, setSubTotal] = useState(0);
+  const router = useRouter();
+
+  const [totalAmount, setTotalAmount] = useState("0.00");
+
+  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
+  const [zip, setZip] = useState("")
+  const [address, setAddress] = useState("")
+
   return (
     <>
       <div className="bg-gray-100 h-screen py-8">
@@ -84,27 +95,28 @@ const page = () => {
             </div>
             <div className="md:w-1/4">
               <div className="bg-white rounded-lg shadow-md p-4">
-                <h2 className="text-lg font-semibold mb-3">Summary</h2>
+                <h2 className="text-lg font-semibold mb-3">Total Cart ({totalCart})</h2>
                 <div className="flex justify-between mb-2 text-sm">
                   <span>Subtotal</span>
-                  <span>$19.99</span>
+                  <span>${subTotal}</span>
                 </div>
                 <div className="flex justify-between mb-2 text-sm">
-                  <span>Taxes</span>
-                  <span>$1.99</span>
+                  <span>Taxes (1%)</span>
+                  <span>${(subTotal * 0.01).toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between mb-2 text-sm">
                   <span>Shipping</span>
-                  <span>$0.00</span>
+                  <span>$5.00</span>
                 </div>
                 <hr className="my-2" />
                 <div className="flex justify-between mb-2 text-sm font-semibold">
                   <span>Total</span>
-                  <span>$21.98</span>
+                  <span>${totalAmount}</span>
                 </div>
-                <button className="bg-blue-500 text-white py-1 px-3 rounded w-full mt-3 text-sm">
+                {/* <button className="bg-blue-500 text-white py-1 px-3 rounded w-full mt-3 text-sm">
                   Checkout
-                </button>
+                </button> */}
+                <PayPalButtons style={{ layout: "horizontal" }} />
               </div>
             </div>
           </div>

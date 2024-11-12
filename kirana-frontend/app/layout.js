@@ -7,6 +7,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Header from "./_components/Header";
 import Footer from "./_components/footer/Footer";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,15 +25,17 @@ export default function RootLayout({ children }) {
   //   params == "/sign-in" || params == "/create-account" ? false : true;
 
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <UpdateCart.Provider value={{updateCart,setUpdateCart}}>
-          {/* {ShowHeader ? <Header /> : null} */}
-          {children}
-          <Toaster />
-          {/* {ShowFooter ? <Footer /> : null} */}
-        </UpdateCart.Provider>
-      </body>
-    </html>
+    <PayPalScriptProvider options={{ clientId: "test" }}>
+      <html lang="en">
+        <body className={inter.className}>
+          <UpdateCart.Provider value={{ updateCart, setUpdateCart }}>
+            {/* {ShowHeader ? <Header /> : null} */}
+            {children}
+            <Toaster />
+            {/* {ShowFooter ? <Footer /> : null} */}
+          </UpdateCart.Provider>
+        </body>
+      </html>
+    </PayPalScriptProvider>
   );
 }
